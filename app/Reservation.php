@@ -18,6 +18,6 @@ class Reservation extends Model
     }
 
     public function equipment(){
-        return $this->hasOne('App\Equipment');
+        return $this->hasOne('App\Equipment', 'id');
     }
 }

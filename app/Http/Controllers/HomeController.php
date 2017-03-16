@@ -28,31 +28,31 @@ class HomeController extends Controller
         $scheduler_end_time = Carbon::createFromTimestamp($timestamp)->addHours(20);
 
         $equipment = Equipment::with('reservations', 'reservations.user')->get();
-        $reservations = Reservation::all();
-        return view('landing', compact('equipment', 'scheduler_start_time', 'scheduler_end_time', 'time', 'reservations'));
+        $user = Auth::user() ? Auth::user()->load('equipment') : null;
+
+        return view('landing', compact('equipment', 'scheduler_start_time', 'scheduler_end_time', 'time', 'user'));
     }
 
     public function reserve(Equipment $equipment, $time)
     {
-        Reservation::create([
-            'user_id' => 1, //Auth::user()->id,
+        Reservation::create(array(
+            'user_id' => Auth::user()->id,
             'equipment_id' => $equipment->id,
             'reserved_from' => Carbon::createFromTimestamp($time),
             'reserved_to' => Carbon::createFromTimestamp($time),
-        ]);
-
+        ));
         return redirect()->back();
     }
 
     public function reserveTo(Equipment $equipment, $time, $timeTo)
     {
+        $split_time = explode(':', $timeTo);
         Reservation::create([
-            'user_id' => 1, //Auth::user()->id,
+            'user_id' => Auth::user()->id,
             'equipment_id' => $equipment->id,
             'reserved_from' => Carbon::createFromTimestamp($time),
-            'reserved_to' => Carbon::createFromTimestamp($timeTo),
+            'reserved_to' => Carbon::createFromTimestamp($time)->startOfDay()->addHours($split_time[0])->addMinutes($split_time[1]),
         ]);
-
         return redirect()->back();
     }
 

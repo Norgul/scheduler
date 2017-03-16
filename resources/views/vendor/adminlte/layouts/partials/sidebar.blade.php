@@ -39,14 +39,14 @@
                 <li @if(\Route::current()->getName() == 'user.index') {{'class=active'}} @endif>
                     <a href="{{ url('admin/user') }}"><i class='fa fa-users'></i> <span>Users</span></a>
                 </li>
-                <li @if(\Route::current()->getName() == 'user.index') {{'class=active'}} @endif>
-                    <a href="{{ url('admin/user') }}"><i class='fa fa-users'></i> <span>Instruments</span></a>
+                <li @if(\Route::current()->getName() == 'equipment.index') {{'class=active'}} @endif>
+                    <a href="{{ url('admin/equipment') }}"><i class='fa fa-briefcase'></i> <span>Instruments</span></a>
                 </li>
-                <li @if(\Route::current()->getName() == 'user.index') {{'class=active'}} @endif>
-                    <a href="{{ url('admin/user') }}"><i class='fa fa-users'></i> <span>Methods</span></a>
+                <li @if(\Route::current()->getName() == 'method.index') {{'class=active'}} @endif>
+                    <a href="{{ url('admin/method') }}"><i class='fa fa-bullseye'></i> <span>Methods</span></a>
                 </li>
-                <li @if(\Route::current()->getName() == 'user.index') {{'class=active'}} @endif>
-                    <a href="{{ url('admin/user') }}"><i class='fa fa-users'></i> <span>Review</span></a>
+                <li @if(\Route::current()->getName() == 'review.index') {{'class=active'}} @endif>
+                    <a href="{{ url('admin/review') }}"><i class='fa fa-book'></i> <span>Review</span></a>
                 </li>
 
             </ul><!-- /.sidebar-menu -->

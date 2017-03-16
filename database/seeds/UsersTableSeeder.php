@@ -30,6 +30,24 @@ class UsersTableSeeder extends Seeder
                 'active' => true,
                 'role_id' => '2'
             ],
+            [
+                'name' => 'Random user2',
+                'email' => 'user2@user.com',
+                'password' => bcrypt('test'),
+                'research_group' => 'some_group',
+                'cell_number' => '+23424452',
+                'active' => false,
+                'role_id' => '3'
+            ],
+            [
+                'name' => 'Random user3',
+                'email' => 'user3@user.com',
+                'password' => bcrypt('test'),
+                'research_group' => 'some_group',
+                'cell_number' => '+23424452',
+                'active' => true,
+                'role_id' => '4'
+            ],
         ]);
     }
 }

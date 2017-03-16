@@ -13,6 +13,8 @@
 
 
 Route::auth();
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
 Route::get('/', function(){
     return redirect('date/'. \Carbon\Carbon::now()->startOfDay()-> timestamp);
 });
@@ -33,13 +35,15 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
     Route::resource('user', 'UserController');
     Route::get('user/destroyMe/{destroyMe}', ['as' => 'user.destroyMe', 'uses' => 'UserController@destroyMe']);
+    Route::get('user/changeState/{id}', ['as' => 'user.changeState', 'uses' => 'UserController@changeState']);
 
-    Route::resource('instrument', 'InstrumentController');
-    Route::get('instrument/destroyMe/{destroyMe}', ['as' => 'instrument.destroyMe', 'uses' => 'InstrumentController@destroyMe']);
+    Route::resource('equipment', 'EquipmentController');
+    Route::get('equipment/destroyMe/{destroyMe}', ['as' => 'equipment.destroyMe', 'uses' => 'EquipmentController@destroyMe']);
 
     Route::resource('method', 'MethodController');
     Route::get('method/destroyMe/{destroyMe}', ['as' => 'method.destroyMe', 'uses' => 'MethodController@destroyMe']);
 
+    Route::resource('review', 'ReviewController');
 
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_routes

@@ -10,6 +10,10 @@ class Equipment extends Model
         'name'
     ];
 
+    protected $attributes = [
+        'name' => ''
+    ];
+
     public function reservations(){
         return $this->hasMany('App\Reservation');
     }

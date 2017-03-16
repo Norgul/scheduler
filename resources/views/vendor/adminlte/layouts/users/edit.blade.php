@@ -21,11 +21,11 @@
 
                     <div class="cd-block">
                         <div class="cd-content">
-                            @include('vendor.adminlte.partials.form_element',
+                            @include('vendor.adminlte.layouts.partials.form_element',
                             ['form_name' =>'Name', 'form_placeholder' => 'User name', 'request_name'=>'name',
                             'old_value' => $user->name, 'fa_icon' => 'fa-user', 'type' => 'text'])
 
-                            @include('vendor.adminlte.partials.form_element',
+                            @include('vendor.adminlte.layouts.partials.form_element',
                             ['form_name' =>'Email', 'form_placeholder' => 'User email', 'request_name'=>'email',
                             'old_value' => $user->email, 'fa_icon' => 'fa-envelope','type' => 'email'])
                                     <!-- End of includes -->
@@ -47,7 +47,12 @@
                                 </div>
                             </div>
 
-
+                            <div class="form-group">
+                                {!! Form::label('equipment', 'Instruments:', ['class' => 'col-lg-2', 'control-label']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::select('equipment[]', $equipment, null, ['class' => 'form-control', 'multiple']) !!}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -58,7 +63,7 @@
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
                                 <input type="submit" class="btn btn-primary" name="save" value="Save"/>
-                                <a href="{{ url('/panel/user') }}" class="btn btn-default"
+                                <a href="{{ url('/admin/user') }}" class="btn btn-default"
                                    role="button">Cancel</a>
                             </div>
                         </div>
@@ -73,5 +78,5 @@
 @endsection
 
 @section('extra_scripts')
-    @include('vendor.adminlte.partials.delete_modal', ['title' => 'user', 'body' => 'user'])
+    @include('vendor.adminlte.layouts.partials.delete_modal', ['title' => 'user', 'body' => 'user'])
 @endsection

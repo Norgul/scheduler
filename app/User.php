@@ -22,6 +22,7 @@ class User extends Authenticatable
         'cell_number',
         'active',
         'role_id',
+        'equipment_id'
     ];
 
     /**
@@ -34,6 +35,15 @@ class User extends Authenticatable
     ];
 
     public function role(){
-        return $this->hasOne('App\Role');
+        return $this->belongsTo('App\Role');
+    }
+
+    public function equipment(){
+        return $this->belongsToMany('App\Equipment');
+    }
+
+    public function isAdmin()
+    {
+        return ($this->role->name == 'Administrator') ?  true : false;
     }
 }

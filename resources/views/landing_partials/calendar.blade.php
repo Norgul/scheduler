@@ -34,28 +34,44 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @while($scheduler_start_time < $scheduler_end_time)
+                    @while($scheduler_start_time <= $scheduler_end_time)
                         <tr>
                             <td>{{$scheduler_start_time->format('H:i:s')}}</td>
                             @foreach($equipment as $instrument)
-                                <td>
-                                    <a href="#" style="display: block;"
-                                       data-href="{{route('reserve-me', [$instrument->id, $scheduler_start_time->timestamp])}}"
-                                       data-toggle="modal"
-                                       data-target="#confirm-reservation"
-                                       data-start-time="{{$scheduler_start_time->toW3cString()}}"
-                                       data-end-time="{{$scheduler_end_time->toW3cString()}}">
+                            @if($user == null)
+                                    <!-- Unauthorized user -->
+                            <?php $modal = "#unauthorized-modal"; $coloring_class = ""?>
+                            @else
+                                    <!-- Authorized user -->
+                            @if($user->equipment()->where('id', $instrument->id)->first() != null)
+                                    <!-- Can use equipment -->
+                            <?php $modal = "#confirm-reservation"; $coloring_class = ""?>
+                            @else
+                                    <!-- Can't use equipment -->
+                            <?php $modal = "#unable-to-use-modal"; $coloring_class = "danger" ?>
+                            @endif
+                            @endif
 
-                                        @if($instrument->reservations->where('reserved_from','=', $scheduler_start_time)
-                                        ->where('reserved_to','<=', $scheduler_end_time)->first() != null)
+                            <td class="{{$coloring_class}}">
+                                <a href="#" style="display: block;"
+                                   data-href="{{route('reserve-me', [$instrument->id, $scheduler_start_time->timestamp])}}"
+                                   data-toggle="modal"
+                                   data-target="{{$modal}}"
+                                   data-start-time="{{$scheduler_start_time->toW3cString()}}"
+                                   data-end-time="{{$scheduler_end_time->toW3cString()}}"
+                                >
+                                    @if($instrument->reservations
+                                    ->where('reserved_from','<=', $scheduler_start_time)
+                                    ->where('reserved_to','>=', $scheduler_start_time)->first() != null)
 
-                                            HERE
+                                        HERE
 
-                                        @else
-                                            &nbsp;
-                                        @endif
-                                    </a>
-                                </td>
+                                    @else
+                                        &nbsp;
+                                    @endif
+                                </a>
+                            </td>
+
                             @endforeach
                             <?php $scheduler_start_time->addMinutes(30) ?>
                         </tr>

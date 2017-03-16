@@ -56,11 +56,11 @@ desired effect
     </div><!-- ./wrapper -->
 </div><!-- ./wrapper -->
 
-<script src="{{asset('../js/jquery-3-1-1.min.js')}}"></script>
-
+<script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
 @section('scripts')
     @include('adminlte::layouts.partials.scripts')
 @show
+@yield('extra_scripts')
 
 </body>
 </html>
