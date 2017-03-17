@@ -23,15 +23,19 @@ Route::get('/date/{timestamp}', 'HomeController@index');
 
 
 
-Route::get('reserve-me/{equipment}/{time}',['as' => 'reserve-me', 'uses' => 'HomeController@reserve']);
+Route::post('reserve-me/{equipment}/{time}',['as' => 'reserve-me', 'uses' => 'HomeController@reserve']);
 Route::get('reserve-me/{equipment}/{time}/{timeTo}',['as' => 'reserve-me-to', 'uses' => 'HomeController@reserveTo']);
+
+Route::group(['middleware' => 'auth',], function () {
+    Route::get('booking/{equipment}/{time}', 'HomeController@booking');
+});
+
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
     Route::get('/home', function(){
         return view('adminlte::home');
     });
-
 
     Route::resource('user', 'UserController');
     Route::get('user/destroyMe/{destroyMe}', ['as' => 'user.destroyMe', 'uses' => 'UserController@destroyMe']);

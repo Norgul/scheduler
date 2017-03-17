@@ -11,13 +11,21 @@ class Reservation extends Model
         'equipment_id',
         'reserved_from',
         'reserved_to',
+        'number_of_samples'
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->hasOne('App\User', 'id', 'user_id');
     }
 
-    public function equipment(){
+    public function equipment()
+    {
         return $this->hasOne('App\Equipment', 'id');
+    }
+
+    public function user_list()
+    {
+        return $this->belongsToMany('App\User');
     }
 }

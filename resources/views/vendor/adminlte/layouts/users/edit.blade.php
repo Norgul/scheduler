@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="form-group">
-                                {!! Form::label('equipment', 'Instruments:', ['class' => 'col-lg-2', 'control-label']) !!}
+                                {!! Form::label('equipment', 'Instruments:', ['class' => 'col-lg-2 control-label']) !!}
                                 <div class="col-md-6">
                                     {!! Form::select('equipment[]', $equipment, null, ['class' => 'form-control', 'multiple']) !!}
                                 </div>

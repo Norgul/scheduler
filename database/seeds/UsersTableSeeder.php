@@ -19,7 +19,8 @@ class UsersTableSeeder extends Seeder
                 'research_group' => 'some_group',
                 'cell_number' => '+23424452',
                 'active' => true,
-                'role_id' => '1'
+                'role_id' => '1',
+                'highlight_color' => '#337ab7'
             ],
             [
                 'name' => 'Random user',
@@ -28,7 +29,8 @@ class UsersTableSeeder extends Seeder
                 'research_group' => 'some_group',
                 'cell_number' => '+23424452',
                 'active' => true,
-                'role_id' => '2'
+                'role_id' => '2',
+                'highlight_color' => '#5cb85c'
             ],
             [
                 'name' => 'Random user2',
@@ -37,7 +39,8 @@ class UsersTableSeeder extends Seeder
                 'research_group' => 'some_group',
                 'cell_number' => '+23424452',
                 'active' => false,
-                'role_id' => '3'
+                'role_id' => '3',
+                'highlight_color' => '#d9534f'
             ],
             [
                 'name' => 'Random user3',
@@ -46,7 +49,8 @@ class UsersTableSeeder extends Seeder
                 'research_group' => 'some_group',
                 'cell_number' => '+23424452',
                 'active' => true,
-                'role_id' => '4'
+                'role_id' => '4',
+                'highlight_color' => '#5bc0de'
             ],
         ]);
     }

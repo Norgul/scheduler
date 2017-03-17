@@ -22,7 +22,8 @@ class User extends Authenticatable
         'cell_number',
         'active',
         'role_id',
-        'equipment_id'
+        'equipment_id',
+        'highlight_color'
     ];
 
     /**

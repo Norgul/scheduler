@@ -17,8 +17,12 @@ class CreateReservationsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('equipment_id')->unsigned();
+            $table->integer('number_of_samples');
             $table->dateTime('reserved_from');
             $table->dateTime('reserved_to');
+            $table->boolean('cancelled');
+            $table->boolean('completed');
+            $table->text('cancellation_reason')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

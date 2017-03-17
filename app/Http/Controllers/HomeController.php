@@ -8,11 +8,14 @@
 namespace App\Http\Controllers;
 
 use App\Equipment;
+use App\EquipmentMethod;
 use App\Http\Requests;
 use App\Reservation;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\DocBlock\Tags\Method;
 
 /**
  * Class HomeController
@@ -33,15 +36,20 @@ class HomeController extends Controller
         return view('landing', compact('equipment', 'scheduler_start_time', 'scheduler_end_time', 'time', 'user'));
     }
 
-    public function reserve(Equipment $equipment, $time)
+    public function reserve(Request $request, Equipment $equipment, $time)
     {
-        Reservation::create(array(
+        $reservation = Reservation::create(array(
             'user_id' => Auth::user()->id,
             'equipment_id' => $equipment->id,
             'reserved_from' => Carbon::createFromTimestamp($time),
             'reserved_to' => Carbon::createFromTimestamp($time),
+            'samples' => $request->samples,
+            'method_id' => $request->group
         ));
-        return redirect()->back();
+
+        $reservation->user_list()->attach($request->users);
+
+        return redirect(session('fallback_url'));
     }
 
     public function reserveTo(Equipment $equipment, $time, $timeTo)
@@ -54,6 +62,14 @@ class HomeController extends Controller
             'reserved_to' => Carbon::createFromTimestamp($time)->startOfDay()->addHours($split_time[0])->addMinutes($split_time[1]),
         ]);
         return redirect()->back();
+    }
+
+    public function booking(Equipment $equipment, $time)
+    {
+        $users = User::pluck('name');
+        $methods = EquipmentMethod::all();
+
+        return view('booking', compact('equipment', 'time', 'users', 'methods'));
     }
 
 }
