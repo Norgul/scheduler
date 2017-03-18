@@ -39,51 +39,57 @@
                 <tr>
                     <td>{{$scheduler_start_time->format('H:i:s')}}</td>
                     @foreach($equipment as $instrument)
-                        <?php $instrument_reservation = $instrument->reservations->where('reserved_from', '<=', $scheduler_start_time)->where('reserved_to', '>=', $scheduler_start_time)->first(); ?>
-                        @if($instrument_reservation != null)
-                            <td style="background-color: {{$instrument_reservation->user->highlight_color}}">
-                                <a href="#"
-                                   data-toggle="modal"
-                                   @if(Auth::user() != null &&
-                               (Auth::user()->isAdmin() || Auth::user()->id == $instrument_reservation->user->id))
-                                   data-target="#unable-to-edit-modal"
-                                   @else
-                                   data-target="#unable-to-edit-modal"
-                                        @endif>
-                                    @if($instrument->reservations->where('reserved_from', '=', $scheduler_start_time)->first() != null)
-                                        <span style="color: white; display: block;">
+                    <?php $instrument_reservation = $instrument->reservations->where('reserved_from', '<=', $scheduler_start_time)->where('reserved_to', '>=', $scheduler_start_time)->first(); ?>
+                    @if($instrument_reservation != null)
+                            <!-- Reservation period from/to -->
+                    <td style="background-color: {{$instrument_reservation->user->highlight_color}}">
+                        <a href="#"
+                           data-toggle="modal"
+                           @if($user != null &&
+                       ($user->isAdmin() || $user->id == $instrument_reservation->user->id))
+                           data-target="#booking-modal"
+                           data-reservation-id="{{$instrument_reservation->id}}"
+                           @else
+                           data-target="#unable-to-edit-modal"
+                                @endif>
+                            @if($instrument->reservations->where('reserved_from', '=', $scheduler_start_time)->first() != null)
+                                <span style="color: white; display: block;">
                                         {{$instrument_reservation->user->name}}
                                     </span>
-                                    @else
-                                        <span style="display: block;">&nbsp;</span>
-                                    @endif
-                                </a>
-                            </td>
-                        @elseif($user == null)
-                            <td>
-                                <a href="#" style="display: block;" data-toggle="modal"
-                                   data-target="#unauthorized-modal">
-                                    @include('landing_partials.calendar_current_booking')
-                                </a>
-                            </td>
-                        @else
-                            @if($user->equipment()->where('id', $instrument->id)->first() != null)
-                                {{session(['fallback_url' => Request::url()])}}
-                                <td>
-                                    <a href="{{url('/booking', [$instrument, $scheduler_start_time->timestamp])}}"
-                                       style="display: block;">
-                                        @include('landing_partials.calendar_current_booking')
-                                    </a>
-                                </td>
                             @else
-                                <td class="danger">
-                                    <a href="#" style="display: block;" data-toggle="modal"
-                                       data-target="#unable-to-use-modal">
-                                        @include('landing_partials.calendar_current_booking')
-                                    </a>
-                                </td>
+                                <span style="display: block;">&nbsp;</span>
                             @endif
-                        @endif
+                        </a>
+                    </td>
+                    @elseif($user == null)
+                            <!-- Unauthorized user -->
+                    <td>
+                        <a href="#" style="display: block;" data-toggle="modal"
+                           data-target="#unauthorized-modal">
+                            @include('landing_partials.calendar_current_booking')
+                        </a>
+                    </td>
+                    @else
+                            <!-- Authorized user -->
+                    @if($user->equipment()->where('id', $instrument->id)->first() != null)
+                            <!-- Has equipment permission, can book -->
+                    {{session(['fallback_url' => Request::url()])}}
+                    <td>
+                        <a href="{{url('/book', [$instrument, $scheduler_start_time->timestamp])}}"
+                           style="display: block;">
+                            @include('landing_partials.calendar_current_booking')
+                        </a>
+                    </td>
+                    @else
+                            <!-- Doesn't have equipment permission, can't book -->
+                    <td class="danger">
+                        <a href="#" style="display: block;" data-toggle="modal"
+                           data-target="#unable-to-use-modal">
+                            @include('landing_partials.calendar_current_booking')
+                        </a>
+                    </td>
+                    @endif
+                    @endif
                     @endforeach
                     <?php $scheduler_start_time->addMinutes(30) ?>
                 </tr>

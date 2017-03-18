@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEquipmentMethodMethodTable extends Migration
+class CreateEquipmentEquipmentMethod extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateEquipmentMethodMethodTable extends Migration
      */
     public function up()
     {
-        Schema::create('equipment_method_method', function (Blueprint $table) {
+        Schema::create('equipment_equipment_method', function (Blueprint $table) {
             $table->integer('equipment_id')->unsigned();
-            $table->integer('equipment_methods_id')->unsigned();
+            $table->integer('equipment_method_id')->unsigned();
 
             $table->foreign('equipment_id')->references('id')->on('equipment')->onDelete('cascade');
-            $table->foreign('equipment_methods_id')->references('id')->on('equipment_methods')->onDelete('cascade');
+            $table->foreign('equipment_method_id')->references('id')->on('equipment_methods')->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateEquipmentMethodMethodTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('equipment_method_method');
+        Schema::dropIfExists('equipment_equipment_method');
     }
 }

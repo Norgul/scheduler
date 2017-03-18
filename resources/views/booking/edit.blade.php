@@ -5,7 +5,7 @@
 
     <div class="position-center">
         <form role="form" id="tryitForm" class="form-horizontal" enctype="multipart/form-data"
-              method="POST" action="{{ route('reserve-me', [$equipment, $time])  }}">
+              method="POST" action="{{ route('booking.update', [$reservation])  }}">
             {!! Form::token() !!}
 
             <div class="cd-block">

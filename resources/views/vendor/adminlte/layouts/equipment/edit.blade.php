@@ -1,13 +1,13 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-    Edit user: {{$user->name}}
+    Edit instrument: {{$equipment->name}}
 @endsection
 @section('contentheader_title')
-    Edit user:
+    Edit instrument:
 @endsection
 @section('contentheader_description')
-    {{$user->name}}
+    {{$equipment->name}}
 @endsection
 
 @section('main-content')
@@ -28,6 +28,14 @@
 
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        {!! Form::label('methods', 'Methods', ['class' => 'col-lg-2 control-label']) !!}
+                        <div class="col-md-6">
+                            {!! Form::select('methods[]', $methods, $equipment->equipment_methods->pluck('id')->toArray(), ['class' => 'form-control', 'multiple']) !!}
+                        </div>
+                    </div>
+
 
                     <input name="_method" value="PUT" type="hidden">
                     <input type="hidden" value="{{ csrf_token() }}" name="_token">

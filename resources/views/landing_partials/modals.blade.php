@@ -24,28 +24,6 @@
         </div>
     </div>
 </div>
-<script>
-    $('#confirm-reservation').on('show.bs.modal', function (e) {
-        $(this).find('.dropdown-menu li').remove();
-        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-        var startTime = moment($(e.relatedTarget).data('start-time')).utc().add(30, 'minutes');
-        var endTime = moment($(e.relatedTarget).data('end-time')).utc();
-
-        while (startTime <= endTime) {
-            $(this).find('.dropdown-menu').append('<li><a href="#">' + startTime.format("HH:mm") + '</a></li>');
-            startTime.add(30, 'minutes');
-        }
-
-        $(document).on('click', '#confirm-reservation .dropdown-menu a', function () {
-            $('#insert_text').text($(this).text());
-            var href = $(e.relatedTarget).data('href');
-
-            $('.btn-ok').attr('href', href + '/' + $(this).text());
-        });
-    });
-
-
-</script>
 
 @include('landing_partials.generic_modal', [
 'modal_id' => 'unauthorized-modal',
@@ -68,7 +46,7 @@
 @include('landing_partials.generic_modal', [
 'modal_id' => 'unable-to-edit-modal',
 'title' => 'Not allowed' ,
-'body' => 'You are not allowed to start, edit or cancel this reservation',
+'body' => 'You are not allowed to start, edit or terminate this reservation',
 'cancel_message' => 'Ok',
 'has_ok_button' => false
 ])
@@ -84,11 +62,19 @@
                 Would you like to run, edit or terminate this booking?
             </div>
             <div class="modal-footer">
-                <a class="btn btn-primary btn-ok" href="{{route('booking.run')}}">Run</a>
-                <a class="btn btn-info btn-ok" href="{{route('booking.edit')}}">Edit</a>
-                <a class="btn btn-danger btn-ok" href="{{route('booking.terminate')}}">Terminate</a>
+                <a class="btn btn-primary btn-run">Run</a>
+                <a class="btn btn-info btn-edit">Edit</a>
+                <a class="btn btn-danger btn-terminate">Terminate</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $('#booking-modal').on('show.bs.modal', function (e) {
+        $('.btn-run').attr('href', '../booking/' + $(e.relatedTarget).data('reservation-id') + '/run');
+        $('.btn-edit').attr('href', '../booking/' + $(e.relatedTarget).data('reservation-id') + '/edit');
+        $('.btn-terminate').attr('href', '../booking/' + $(e.relatedTarget).data('reservation-id') + '/terminate');
+    });
+</script>

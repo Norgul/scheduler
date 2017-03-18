@@ -21,17 +21,18 @@ Route::get('/', function(){
 
 Route::get('/date/{timestamp}', 'HomeController@index');
 
-Route::post('reserve-me/{equipment}/{time}',['as' => 'reserve-me', 'uses' => 'HomeController@reserve']);
-Route::get('reserve-me/{equipment}/{time}/{timeTo}',['as' => 'reserve-me-to', 'uses' => 'HomeController@reserveTo']);
+Route::post('reserve-me/{equipment}/{time}',['as' => 'reserve-me', 'uses' => 'BookingController@reserve']);
+Route::get('reserve-me/{equipment}/{time}/{timeTo}',['as' => 'reserve-me-to', 'uses' => 'BookingController@reserveTo']);
 
 Route::group(['middleware' => 'auth',], function () {
-    Route::get('booking/{equipment}/{time}', 'BookingController@index');
-    Route::get('booking/run', ['as' => 'booking.run', 'uses' => 'BookingController@run']);
-    Route::get('booking/edit', ['as' => 'booking.edit', 'uses' => 'BookingController@edit']);
-    Route::get('booking/terminate', ['as' => 'booking.terminate', 'uses' => 'BookingController@terminate']);
+    Route::get('book/{equipment}/{time}', 'BookingController@index');
+    Route::get('booking/{reservation}/run', ['as' => 'booking.run', 'uses' => 'BookingController@run']);
+    Route::get('booking/{reservation}/edit', ['as' => 'booking.edit', 'uses' => 'BookingController@edit']);
+    Route::put('booking/{reservation}', ['as' => 'booking.update', 'uses' => 'BookingController@update']);
+    Route::get('booking/{reservation}/terminate', ['as' => 'booking.terminate', 'uses' => 'BookingController@terminate']);
 });
 
-Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function () {
 
     Route::get('/', function(){
         return redirect('admin/user');

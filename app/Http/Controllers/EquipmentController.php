@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Equipment;
+use App\EquipmentMethod;
 use Illuminate\Http\Request;
 
 class EquipmentController extends Controller
@@ -31,12 +32,14 @@ class EquipmentController extends Controller
 
     public function edit(Equipment $equipment)
     {
-        return view('vendor.adminlte.layouts.equipment.edit', compact('equipment'));
+        $methods = EquipmentMethod::pluck('name', 'id');
+        return view('vendor.adminlte.layouts.equipment.edit', compact('equipment', 'methods'));
     }
 
     public function update(Request $request, Equipment $equipment)
     {
         $equipment->update($request->all());
+        $equipment->equipment_methods()->sync($request->has('methods') ? $request->input('methods') : []);
         return redirect('admin/equipment');
     }
 

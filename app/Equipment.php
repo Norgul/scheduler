@@ -18,7 +18,7 @@ class Equipment extends Model
         return $this->hasMany('App\Reservation');
     }
 
-    /*public function users(){
-        return $this->belongsToMany('App\User');
-    }*/
+    public function equipment_methods(){
+        return $this->belongsToMany('App\EquipmentMethod');
+    }
 }

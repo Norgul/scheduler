@@ -27,7 +27,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        return $request->all();
         $user = User::create([$request->all()]);
         $user->attach($request->input('equipment'));
         $user->attach($request->input('supervisor'));

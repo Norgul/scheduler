@@ -35,32 +35,4 @@ class HomeController extends Controller
 
         return view('landing', compact('equipment', 'scheduler_start_time', 'scheduler_end_time', 'time', 'user'));
     }
-
-    public function reserve(Request $request, Equipment $equipment, $time)
-    {
-        $reservation = Reservation::create(array(
-            'user_id' => Auth::user()->id,
-            'equipment_id' => $equipment->id,
-            'reserved_from' => Carbon::createFromTimestamp($time),
-            'reserved_to' => Carbon::createFromTimestamp($time),
-            'number_of_samples' => $request->input('samples'),
-            'method_id' => $request->input('group')
-        ));
-
-        $reservation->user_list()->attach($request->users);
-
-        return redirect(session('fallback_url'));
-    }
-
-    public function reserveTo(Equipment $equipment, $time, $timeTo)
-    {
-        $split_time = explode(':', $timeTo);
-        Reservation::create([
-            'user_id' => Auth::user()->id,
-            'equipment_id' => $equipment->id,
-            'reserved_from' => Carbon::createFromTimestamp($time),
-            'reserved_to' => Carbon::createFromTimestamp($time)->startOfDay()->addHours($split_time[0])->addMinutes($split_time[1]),
-        ]);
-        return redirect()->back();
-    }
 }
