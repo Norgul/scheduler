@@ -14,13 +14,11 @@ class CreateSupervisorsTable extends Migration
     public function up()
     {
         Schema::create('supervisors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user-id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('supervisor_id')->unsigned();
-            $table->timestamps();
 
             $table->foreign('supervisor_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('user-id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

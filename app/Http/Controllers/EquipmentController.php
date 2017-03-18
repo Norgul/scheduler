@@ -15,12 +15,13 @@ class EquipmentController extends Controller
 
     public function create()
     {
-        //
+        return view('vendor.adminlte.layouts.equipment.create');
     }
 
     public function store(Request $request)
     {
-        //
+        Equipment::create($request->all());
+        return redirect('admin/equipment');
     }
 
     public function show($id)

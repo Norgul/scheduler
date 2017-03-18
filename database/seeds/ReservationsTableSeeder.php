@@ -16,7 +16,9 @@ class ReservationsTableSeeder extends Seeder
             'equipment_id'=>1,
             'reserved_from' => \Carbon\Carbon::createFromTime(15,0,0),
             'reserved_to' => \Carbon\Carbon::now()->addHour(),
-            'number_of_samples' => 5
+            'number_of_samples' => 5,
+            'cancelled' => false,
+            'completed' => false
         ]);
     }
 }

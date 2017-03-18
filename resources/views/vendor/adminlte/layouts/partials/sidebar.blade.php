@@ -36,15 +36,48 @@
             <ul class="sidebar-menu">
                 <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li @if(\Route::current()->getName() == 'user.index') {{'class=active'}} @endif>
-                    <a href="{{ url('admin/user') }}"><i class='fa fa-users'></i> <span>Users</span></a>
+                <li class="treeview @if(\Route::current()->getName() == 'user.index' || \Route::current()->getName() == 'user.create')
+                {{'active'}}@endif">
+                    <a href="#"><i class='fa fa-users'></i> <span>Users</span> <i
+                                class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li @if(\Route::current()->getName() == 'user.index') {{'class=active'}} @endif>
+                            <a href="{{ url('admin/user') }}">All users</a>
+                        </li>
+                        <li @if(\Route::current()->getName() == 'user.create') {{'class=active'}} @endif>
+                            <a href="{{ url('admin/user/create') }}">Create new</a>
+                        </li>
+                    </ul>
                 </li>
-                <li @if(\Route::current()->getName() == 'equipment.index') {{'class=active'}} @endif>
-                    <a href="{{ url('admin/equipment') }}"><i class='fa fa-briefcase'></i> <span>Instruments</span></a>
+
+                <li class="treeview @if(\Route::current()->getName() == 'equipment.index' || \Route::current()->getName() == 'equipment.create')
+                {{'active'}}@endif">
+                    <a href="#"><i class='fa fa-briefcase'></i> <span>Instruments</span> <i
+                                class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li @if(\Route::current()->getName() == 'equipment.index') {{'class=active'}} @endif>
+                            <a href="{{ url('admin/equipment') }}">All instruments</a>
+                        </li>
+                        <li @if(\Route::current()->getName() == 'equipment.create') {{'class=active'}} @endif>
+                            <a href="{{ url('admin/equipment/create') }}">Create new</a>
+                        </li>
+                    </ul>
                 </li>
-                <li @if(\Route::current()->getName() == 'method.index') {{'class=active'}} @endif>
-                    <a href="{{ url('admin/method') }}"><i class='fa fa-bullseye'></i> <span>Methods</span></a>
+
+                <li class="treeview @if(\Route::current()->getName() == 'method.index' || \Route::current()->getName() == 'method.create')
+                {{'active'}}@endif">
+                    <a href="#"><i class='fa fa-bullseye'></i> <span>Methods</span> <i
+                                class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li @if(\Route::current()->getName() == 'method.index') {{'class=active'}} @endif>
+                            <a href="{{ url('admin/method') }}">All methods</a>
+                        </li>
+                        <li @if(\Route::current()->getName() == 'method.create') {{'class=active'}} @endif>
+                            <a href="{{ url('admin/method/create') }}">Create new</a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li @if(\Route::current()->getName() == 'review.index') {{'class=active'}} @endif>
                     <a href="{{ url('admin/review') }}"><i class='fa fa-book'></i> <span>Review</span></a>
                 </li>

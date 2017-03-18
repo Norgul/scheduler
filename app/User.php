@@ -43,8 +43,16 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Equipment');
     }
 
+    public function supervisor(){
+        return $this->belongsToMany('App\User', 'supervisors', 'user_id', 'supervisor_id');
+    }
+
     public function isAdmin()
     {
         return ($this->role->name == 'Administrator') ?  true : false;
+    }
+    public function isStudent()
+    {
+        return ($this->role->name == 'Student') ?  true : false;
     }
 }

@@ -39,7 +39,27 @@
                 <tr>
                     <td>{{$scheduler_start_time->format('H:i:s')}}</td>
                     @foreach($equipment as $instrument)
-                        @if($user == null)
+                        <?php $instrument_reservation = $instrument->reservations->where('reserved_from', '<=', $scheduler_start_time)->where('reserved_to', '>=', $scheduler_start_time)->first(); ?>
+                        @if($instrument_reservation != null)
+                            <td style="background-color: {{$instrument_reservation->user->highlight_color}}">
+                                <a href="#"
+                                   data-toggle="modal"
+                                   @if(Auth::user() != null &&
+                               (Auth::user()->isAdmin() || Auth::user()->id == $instrument_reservation->user->id))
+                                   data-target="#unable-to-edit-modal"
+                                   @else
+                                   data-target="#unable-to-edit-modal"
+                                        @endif>
+                                    @if($instrument->reservations->where('reserved_from', '=', $scheduler_start_time)->first() != null)
+                                        <span style="color: white; display: block;">
+                                        {{$instrument_reservation->user->name}}
+                                    </span>
+                                    @else
+                                        <span style="display: block;">&nbsp;</span>
+                                    @endif
+                                </a>
+                            </td>
+                        @elseif($user == null)
                             <td>
                                 <a href="#" style="display: block;" data-toggle="modal"
                                    data-target="#unauthorized-modal">

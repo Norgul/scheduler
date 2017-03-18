@@ -1,7 +1,3 @@
-<!-- ako smije koristiti -->
-<!-- ako je za editirati -->
-<!-- ako nije već rezerviran  -->
-
 <div class="modal fade" id="confirm-reservation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
@@ -56,13 +52,43 @@
 'title' => 'Not logged in',
 'body' => 'You need to be logged in to make a reservation',
 'route' => '/login',
-'confirm_message' => 'Login'
+'confirm_message' => 'Login',
+'cancel_message' => 'Cancel',
+'has_ok_button' => true
 ])
 
 @include('landing_partials.generic_modal', [
 'modal_id' => 'unable-to-use-modal',
 'title' => 'Not allowed' ,
 'body' => 'You are not allowed to use this instrument without supervision',
-'route' => '/',
-'confirm_message' => 'Ok'
+'cancel_message' => 'Ok',
+'has_ok_button' => false
 ])
+
+@include('landing_partials.generic_modal', [
+'modal_id' => 'unable-to-edit-modal',
+'title' => 'Not allowed' ,
+'body' => 'You are not allowed to start, edit or cancel this reservation',
+'cancel_message' => 'Ok',
+'has_ok_button' => false
+])
+
+<div class="modal fade" id="booking-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Choose an option
+            </div>
+            <div class="modal-body">
+                Would you like to run, edit or terminate this booking?
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary btn-ok" href="{{route('booking.run')}}">Run</a>
+                <a class="btn btn-info btn-ok" href="{{route('booking.edit')}}">Edit</a>
+                <a class="btn btn-danger btn-ok" href="{{route('booking.terminate')}}">Terminate</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

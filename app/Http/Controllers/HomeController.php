@@ -43,8 +43,8 @@ class HomeController extends Controller
             'equipment_id' => $equipment->id,
             'reserved_from' => Carbon::createFromTimestamp($time),
             'reserved_to' => Carbon::createFromTimestamp($time),
-            'samples' => $request->samples,
-            'method_id' => $request->group
+            'number_of_samples' => $request->input('samples'),
+            'method_id' => $request->input('group')
         ));
 
         $reservation->user_list()->attach($request->users);
@@ -63,13 +63,4 @@ class HomeController extends Controller
         ]);
         return redirect()->back();
     }
-
-    public function booking(Equipment $equipment, $time)
-    {
-        $users = User::pluck('name');
-        $methods = EquipmentMethod::all();
-
-        return view('booking', compact('equipment', 'time', 'users', 'methods'));
-    }
-
 }

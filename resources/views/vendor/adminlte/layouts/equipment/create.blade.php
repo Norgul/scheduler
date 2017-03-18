@@ -1,13 +1,10 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-    Edit user: {{$user->name}}
+    Add new instrument
 @endsection
 @section('contentheader_title')
-    Edit user:
-@endsection
-@section('contentheader_description')
-    {{$user->name}}
+    Add new instrument
 @endsection
 
 @section('main-content')
@@ -16,14 +13,14 @@
 
             <div class="position-center">
                 <form role="form" id="tryitForm" class="form-horizontal" enctype="multipart/form-data"
-                      method="POST" action="{{route('equipment.update', $equipment->id)}}">
+                      method="POST" action="{{route('equipment.store')}}">
                     {!! Form::token() !!}
 
                     <div class="cd-block">
                         <div class="cd-content">
                             @include('vendor.adminlte.layouts.partials.form_element',
                             ['form_name' =>'Name', 'form_placeholder' => 'Instrument name', 'request_name'=>'name',
-                            'old_value' => $equipment->name, 'fa_icon' => 'fa-briefcase', 'type' => 'text'])
+                            'old_value' => null, 'fa_icon' => 'fa-briefcase', 'type' => 'text'])
                                     <!-- End of includes -->
 
                         </div>

@@ -1,13 +1,10 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-    Edit user: {{$user->name}}
+    Add new method
 @endsection
 @section('contentheader_title')
-    Edit user:
-@endsection
-@section('contentheader_description')
-    {{$user->name}}
+    Add new method
 @endsection
 
 @section('main-content')
@@ -16,14 +13,14 @@
 
             <div class="position-center">
                 <form role="form" id="tryitForm" class="form-horizontal" enctype="multipart/form-data"
-                      method="POST" action="{{route('equipment.update', $equipment->id)}}">
+                      method="POST" action="{{route('method.store')}}">
                     {!! Form::token() !!}
 
                     <div class="cd-block">
                         <div class="cd-content">
                             @include('vendor.adminlte.layouts.partials.form_element',
-                            ['form_name' =>'Name', 'form_placeholder' => 'Instrument name', 'request_name'=>'name',
-                            'old_value' => $equipment->name, 'fa_icon' => 'fa-briefcase', 'type' => 'text'])
+                            ['form_name' =>'Name', 'form_placeholder' => 'Method name', 'request_name'=>'name',
+                            'old_value' => null, 'fa_icon' => 'fa-briefcase', 'type' => 'text'])
                                     <!-- End of includes -->
 
                         </div>
@@ -36,7 +33,7 @@
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
                                 <input type="submit" class="btn btn-primary" name="save" value="Save"/>
-                                <a href="{{ url('/admin/equipment') }}" class="btn btn-default"
+                                <a href="{{ url('/admin/method') }}" class="btn btn-default"
                                    role="button">Cancel</a>
                             </div>
                         </div>

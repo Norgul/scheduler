@@ -24,8 +24,10 @@
                 @else
                     @if(Auth::user()->isAdmin())
                         <li><a href="{{url('admin/user')}}">Management</a></li>
+                        <li><a href="{{url('/logout')}}">Logout</a></li>
                     @else
                         <li><a href="{{url('/')}}">{{Auth::user()->name}}</a></li>
+                        <li><a href="{{url('/logout')}}">Logout</a></li>
                     @endif
                 @endif
             </ul>

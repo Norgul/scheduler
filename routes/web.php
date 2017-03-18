@@ -21,20 +21,20 @@ Route::get('/', function(){
 
 Route::get('/date/{timestamp}', 'HomeController@index');
 
-
-
 Route::post('reserve-me/{equipment}/{time}',['as' => 'reserve-me', 'uses' => 'HomeController@reserve']);
 Route::get('reserve-me/{equipment}/{time}/{timeTo}',['as' => 'reserve-me-to', 'uses' => 'HomeController@reserveTo']);
 
 Route::group(['middleware' => 'auth',], function () {
-    Route::get('booking/{equipment}/{time}', 'HomeController@booking');
+    Route::get('booking/{equipment}/{time}', 'BookingController@index');
+    Route::get('booking/run', ['as' => 'booking.run', 'uses' => 'BookingController@run']);
+    Route::get('booking/edit', ['as' => 'booking.edit', 'uses' => 'BookingController@edit']);
+    Route::get('booking/terminate', ['as' => 'booking.terminate', 'uses' => 'BookingController@terminate']);
 });
-
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
-    Route::get('/home', function(){
-        return view('adminlte::home');
+    Route::get('/', function(){
+        return redirect('admin/user');
     });
 
     Route::resource('user', 'UserController');
@@ -44,8 +44,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('equipment', 'EquipmentController');
     Route::get('equipment/destroyMe/{destroyMe}', ['as' => 'equipment.destroyMe', 'uses' => 'EquipmentController@destroyMe']);
 
-    Route::resource('method', 'MethodController');
-    Route::get('method/destroyMe/{destroyMe}', ['as' => 'method.destroyMe', 'uses' => 'MethodController@destroyMe']);
+    Route::resource('method', 'EquipmentMethodController');
+    Route::get('method/destroyMe/{destroyMe}', ['as' => 'method.destroyMe', 'uses' => 'EquipmentMethodController@destroyMe']);
 
     Route::resource('review', 'ReviewController');
 

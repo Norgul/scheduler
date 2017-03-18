@@ -19,6 +19,7 @@ class RolesTableSeeder extends Seeder
             ['name' => 'Ph.D'],
             ['name' => 'Post Doc'],
             ['name' => 'Lecturer'],
+            ['name' => 'Student'],
         ]);
     }
 }

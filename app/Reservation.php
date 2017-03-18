@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Reservation extends Model
 {
@@ -11,7 +12,14 @@ class Reservation extends Model
         'equipment_id',
         'reserved_from',
         'reserved_to',
-        'number_of_samples'
+        'number_of_samples',
+        'cancelled',
+        'completed'
+    ];
+
+    protected $attributes = [
+        'cancelled' => false,
+        'completed' => false
     ];
 
     public function user()

@@ -6,6 +6,7 @@ use App\Equipment;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
@@ -17,12 +18,20 @@ class UserController extends Controller
 
     public function create()
     {
-        //
+        $roles = Role::all();
+        $equipment = Equipment::pluck('name', 'id');
+        $supervisor = User::pluck('name', 'id');
+
+        return view('vendor.adminlte.layouts.users.create', compact('roles', 'equipment', 'supervisor'));
     }
 
     public function store(Request $request)
     {
-        //
+        return $request->all();
+        $user = User::create([$request->all()]);
+        $user->attach($request->input('equipment'));
+        $user->attach($request->input('supervisor'));
+        return redirect('admin/user');
     }
 
     public function show($id)
@@ -34,7 +43,9 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $equipment = Equipment::pluck('name', 'id');
-        return view('vendor.adminlte.layouts.users.edit', compact('user', 'roles', 'equipment'));
+        $supervisor = User::where('id', '<>', $user->id)->pluck('name', 'id');
+
+        return view('vendor.adminlte.layouts.users.edit', compact('user', 'roles', 'equipment', 'supervisor'));
     }
 
     public function update(Request $request, User $user)
@@ -43,8 +54,8 @@ class UserController extends Controller
         $user->role_id = $request->role_id;
         $user->save();
 
-        $equipment_ids = $request->input('equipment');
-        $user->equipment()->attach($equipment_ids);
+        $user->equipment()->sync($request->has('equipment') ? $request->input('equipment') : []);
+        $user->supervisor()->sync($request->has('supervisor') ? $request->input('supervisor') : []);
 
         return redirect('admin/user');
     }

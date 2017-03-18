@@ -9,8 +9,10 @@
                 {{$body}}
             </div>
             <div class="modal-footer">
-                <a class="btn btn-primary btn-ok" href="{{url($route)}}">{{$confirm_message}}</a>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                @if($has_ok_button)
+                    <a class="btn btn-primary btn-ok" href="{{url($route)}}">{{$confirm_message}}</a>
+                @endif
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{$cancel_message}}</button>
             </div>
         </div>
     </div>

@@ -1,33 +1,32 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-    Edit user: {{$user->name}}
+    Add new user
 @endsection
 @section('contentheader_title')
-    Edit user:
-@endsection
-@section('contentheader_description')
-    {{$user->name}}
+    Add new user
 @endsection
 
 @section('main-content')
     <div class="container-fluid spark-screen">
         <div class="row">
 
+            @include('vendor.adminlte.layouts.partials.flash_messages')
+
             <div class="position-center">
                 <form role="form" id="tryitForm" class="form-horizontal" enctype="multipart/form-data"
-                      method="POST" action="{{route('user.update', $user->id)}}">
+                      method="POST" action="{{route('user.store')}}">
                     {!! Form::token() !!}
 
                     <div class="cd-block">
                         <div class="cd-content">
                             @include('vendor.adminlte.layouts.partials.form_element',
                             ['form_name' =>'Name', 'form_placeholder' => 'User name', 'request_name'=>'name',
-                            'old_value' => $user->name, 'fa_icon' => 'fa-user', 'type' => 'text'])
+                            'old_value' => null, 'fa_icon' => 'fa-user', 'type' => 'text'])
 
                             @include('vendor.adminlte.layouts.partials.form_element',
                             ['form_name' =>'Email', 'form_placeholder' => 'User email', 'request_name'=>'email',
-                            'old_value' => $user->email, 'fa_icon' => 'fa-envelope','type' => 'email'])
+                            'old_value' => null, 'fa_icon' => 'fa-envelope','type' => 'email'])
                                     <!-- End of includes -->
 
                             <!-- Select Role -->
@@ -50,14 +49,14 @@
                             <div class="form-group">
                                 {!! Form::label('equipment', 'Instruments', ['class' => 'col-lg-2 control-label']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::select('equipment[]', $equipment, $user->equipment->pluck('id')->toArray(), ['class' => 'form-control', 'multiple']) !!}
+                                    {!! Form::select('equipment[]', $equipment, null, ['class' => 'form-control', 'multiple']) !!}
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 {!! Form::label('supervisor', 'Supervisors', ['class' => 'col-lg-2 control-label']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::select('supervisor[]', $supervisor, $user->supervisor->pluck('id')->toArray(), ['class' => 'form-control', 'multiple']) !!}
+                                    {!! Form::select('supervisor[]', $supervisor, null, ['class' => 'form-control', 'multiple']) !!}
                                 </div>
                             </div>
                         </div>
@@ -78,7 +77,6 @@
 
                 </form>
             </div>
-
 
         </div>
     </div>
