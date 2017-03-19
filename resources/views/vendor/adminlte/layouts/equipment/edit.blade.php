@@ -29,13 +29,30 @@
                         </div>
                     </div>
 
+                    <!-- Columns -->
+                    <div class="form-group">
+                        <label for="group" class="col-md-2 control-label">Currently installed column</label>
+
+                        <div class="col-md-6">
+                            <select class="form-control " name="method_column_id"
+                                    id="method_column_id" required="">
+                                <option value="">Select</option>
+                                @foreach($columns as $column)
+                                    <option value="{{ $column->id }}"
+                                            @if($column->id == old('method_column_id', $equipment->method_column_id))
+                                            selected="selected"
+                                            @endif >{{ $column->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         {!! Form::label('methods', 'Methods', ['class' => 'col-lg-2 control-label']) !!}
                         <div class="col-md-6">
                             {!! Form::select('methods[]', $methods, $equipment->equipment_methods->pluck('id')->toArray(), ['class' => 'form-control', 'multiple']) !!}
                         </div>
                     </div>
-
 
                     <input name="_method" value="PUT" type="hidden">
                     <input type="hidden" value="{{ csrf_token() }}" name="_token">

@@ -75,7 +75,7 @@
                             <!-- Has equipment permission, can book -->
                     {{session(['fallback_url' => Request::url()])}}
                     <td>
-                        <a href="{{url('/book', [$instrument, $scheduler_start_time->timestamp])}}"
+                        <a href="{{url('/reserve', [$instrument, $scheduler_start_time->timestamp])}}"
                            style="display: block;">
                             @include('landing_partials.calendar_current_booking')
                         </a>

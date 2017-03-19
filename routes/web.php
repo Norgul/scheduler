@@ -15,26 +15,24 @@
 Route::auth();
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::get('/', function(){
-    return redirect('date/'. \Carbon\Carbon::now()->startOfDay()-> timestamp);
+Route::get('/', function () {
+    return redirect('date/' . \Carbon\Carbon::now()->startOfDay()->timestamp);
 });
 
 Route::get('/date/{timestamp}', 'HomeController@index');
 
-Route::post('reserve-me/{equipment}/{time}',['as' => 'reserve-me', 'uses' => 'BookingController@reserve']);
-Route::get('reserve-me/{equipment}/{time}/{timeTo}',['as' => 'reserve-me-to', 'uses' => 'BookingController@reserveTo']);
-
 Route::group(['middleware' => 'auth',], function () {
-    Route::get('book/{equipment}/{time}', 'BookingController@index');
-    Route::get('booking/{reservation}/run', ['as' => 'booking.run', 'uses' => 'BookingController@run']);
-    Route::get('booking/{reservation}/edit', ['as' => 'booking.edit', 'uses' => 'BookingController@edit']);
-    Route::put('booking/{reservation}', ['as' => 'booking.update', 'uses' => 'BookingController@update']);
-    Route::get('booking/{reservation}/terminate', ['as' => 'booking.terminate', 'uses' => 'BookingController@terminate']);
+    Route::get('reserve/{equipment}/{time}', 'ReservationController@index');
+    Route::resource('reservation', 'ReservationController', ['except' => 'index']);
+    Route::get('reservation/{reservation}/run', ['as' => 'reservation.run', 'uses' => 'ReservationController@run']);
+    Route::put('reservation/terminate/{reservation}', ['as' => 'reservation.update_termination', 'uses' => 'ReservationController@update_termination']);
+    Route::get('reservation/{reservation}/terminate', ['as' => 'reservation.terminate', 'uses' => 'ReservationController@terminate']);
+    Route::post('reserve-me/{equipment}/{time}', ['as' => 'reserve-me', 'uses' => 'ReservationController@reserve']);
 });
 
 Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function () {
 
-    Route::get('/', function(){
+    Route::get('/', function () {
         return redirect('admin/user');
     });
 
@@ -47,6 +45,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
 
     Route::resource('method', 'EquipmentMethodController');
     Route::get('method/destroyMe/{destroyMe}', ['as' => 'method.destroyMe', 'uses' => 'EquipmentMethodController@destroyMe']);
+
+    Route::resource('column', 'MethodColumnController');
+    Route::get('column/destroyMe/{destroyMe}', ['as' => 'column.destroyMe', 'uses' => 'MethodColumnController@destroyMe']);
 
     Route::resource('review', 'ReviewController');
 

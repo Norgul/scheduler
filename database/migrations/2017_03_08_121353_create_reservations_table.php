@@ -22,6 +22,7 @@ class CreateReservationsTable extends Migration
             $table->dateTime('reserved_to');
             $table->boolean('cancelled');
             $table->boolean('completed');
+
             $table->text('cancellation_reason')->nullable();
             $table->timestamps();
 

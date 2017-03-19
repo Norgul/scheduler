@@ -62,7 +62,38 @@
                         </div>
                     </div>
 
-                    <input name="_method" value="PUT" type="hidden">
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="password">Password</label>
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-fw fa-key text-primary"></i>
+                                </span>
+                                <input type="password" name="password" placeholder="" id="password"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="password_confirmation">Confirm password</label>
+
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-fw fa-key text-primary"></i>
+                                </span>
+                                <input type="password" name="password_confirmation" placeholder=" "
+                                       id="password_confirmation" class="form-control"/>
+                            </div>
+                            @if ($errors->has('password'))
+                                <span class="help-block"
+                                      style="color: red"><strong>{{ $errors->first('password') }}</strong></span>
+                            @endif
+                        </div>
+                    </div>
+
                     <input type="hidden" value="{{ csrf_token() }}" name="_token">
 
                     <div class="cd-block">

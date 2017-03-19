@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Equipment extends Model
 {
     protected $fillable = [
-        'name'
+        'name',
+        'method_column_id'
     ];
 
     protected $attributes = [
@@ -20,5 +21,10 @@ class Equipment extends Model
 
     public function equipment_methods(){
         return $this->belongsToMany('App\EquipmentMethod');
+    }
+
+    public function column()
+    {
+        return $this->hasOne('App\MethodColumn', 'id','method_column_id');
     }
 }

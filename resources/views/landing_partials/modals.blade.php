@@ -73,8 +73,8 @@
 
 <script>
     $('#booking-modal').on('show.bs.modal', function (e) {
-        $('.btn-run').attr('href', '../booking/' + $(e.relatedTarget).data('reservation-id') + '/run');
-        $('.btn-edit').attr('href', '../booking/' + $(e.relatedTarget).data('reservation-id') + '/edit');
-        $('.btn-terminate').attr('href', '../booking/' + $(e.relatedTarget).data('reservation-id') + '/terminate');
+        $('.btn-run').attr('href', '../reservation/' + $(e.relatedTarget).data('reservation-id') + '/run');
+        $('.btn-edit').attr('href', '../reservation/' + $(e.relatedTarget).data('reservation-id') + '/edit');
+        $('.btn-terminate').attr('href', '../reservation/' + $(e.relatedTarget).data('reservation-id') + '/terminate');
     });
 </script>

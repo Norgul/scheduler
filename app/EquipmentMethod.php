@@ -8,6 +8,17 @@ class EquipmentMethod extends Model
 {
     protected $fillable = [
         'name',
+        'cost',
     ];
+
+    public function columns()
+    {
+        return $this->belongsToMany('App\MethodColumn');
+    }
+
+    public function equipment()
+    {
+        return $this->belongsToMany('App\Equipment');
+    }
 
 }

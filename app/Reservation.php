@@ -14,7 +14,9 @@ class Reservation extends Model
         'reserved_to',
         'number_of_samples',
         'cancelled',
-        'completed'
+        'completed',
+        'method_id',
+        'cancellation_reason'
     ];
 
     protected $attributes = [
@@ -29,11 +31,16 @@ class Reservation extends Model
 
     public function equipment()
     {
-        return $this->hasOne('App\Equipment', 'id');
+        return $this->hasOne('App\Equipment', 'id', 'equipment_id');
     }
 
     public function user_list()
     {
         return $this->belongsToMany('App\User');
+    }
+
+    public function method()
+    {
+        return $this->hasOne('App\EquipmentMethod', 'id', 'method_id');
     }
 }

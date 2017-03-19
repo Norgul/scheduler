@@ -78,6 +78,20 @@
                     </ul>
                 </li>
 
+                <li class="treeview @if(\Route::current()->getName() == 'column.index' || \Route::current()->getName() == 'column.create')
+                {{'active'}}@endif">
+                    <a href="#"><i class='fa fa-columns'></i> <span>Columns</span> <i
+                                class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li @if(\Route::current()->getName() == 'column.index') {{'class=active'}} @endif>
+                            <a href="{{ url('admin/column') }}">All columns</a>
+                        </li>
+                        <li @if(\Route::current()->getName() == 'column.create') {{'class=active'}} @endif>
+                            <a href="{{ url('admin/column/create') }}">Create new</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li @if(\Route::current()->getName() == 'review.index') {{'class=active'}} @endif>
                     <a href="{{ url('admin/review') }}"><i class='fa fa-book'></i> <span>Review</span></a>
                 </li>

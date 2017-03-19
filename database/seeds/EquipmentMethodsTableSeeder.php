@@ -12,11 +12,11 @@ class EquipmentMethodsTableSeeder extends Seeder
     public function run()
     {
         DB::table('equipment_methods')->insert([
-            ['name' => 'Method 1', 'cost' => 10],
-            ['name' => 'Method 2', 'cost' => 10],
-            ['name' => 'Method 3', 'cost' => 10],
-            ['name' => 'Method 4', 'cost' => 10],
-            ['name' => 'Method 5', 'cost' => 10],
+            ['name' => 'Glucose test', 'cost' => 10],
+            ['name' => 'Keihose test', 'cost' => 38],
+            ['name' => 'Rezpose test', 'cost' => 16],
+            ['name' => 'Rrrrose test', 'cost' => 4],
+            ['name' => 'Pooocose test', 'cost' => 1],
         ]);
     }
 }

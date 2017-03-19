@@ -21,7 +21,7 @@
 </div>
 
 @include('landing_partials.scripts')
-
+@yield('scripts')
 @yield('modals')
 
 </body>
